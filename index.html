@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STAR EDGE BUSINESS CENTRE</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+}
+
+header {
+    background: rgb(28, 202, 66);
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+nav {
+    background: #333;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+section {
+    padding: 40px;
+    text-align: center;
+}
+
+.hero {
+    background: url('sss.jpg') center/cover;
+    color: rgb(250, 225, 4);
+    height: 500px;
+    display: flex;
+    align-items: center;
+    }
+
+/* SECTION */
+.services-section {
+    padding: 80px 40px;
+    text-align: center;
+}
+
+.services-section h2 {
+    margin-bottom: 40px;
+}
+
+/* GRID */
+.services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* CARD */
+.service {
+    position: relative;
+    overflow: hidden;
+}
+
+/* IMAGE */
+.service img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+/* OVERLAY */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+/* TEXT */
+.overlay h3 {
+    margin: 10px 0;
+}
+
+.overlay p {
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+/* BUTTON */
+.book-btn {
+    padding: 10px 20px;
+    background: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: 0.3s;
+}
+
+.book-btn:hover {
+    background: black;
+    color: white;
+}
+
+/* HOVER EFFECT */
+.service:hover img {
+    transform: scale(1.1);
+}
+
+.service:hover .overlay {
+    opacity: 1;
+}
+
+footer {
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>ABDUL RAFIU GRAPHICS</h1>
+    <p>Your One-Stop Print & Design Hub</p>
+</header>
+
+<nav>
+    <a href="#">Home</a>
+    <a href="#">Services</a>
+    <a href="#">Gallery</a>
+    <a href="#">Contact</a>
+</nav>
+
+<section class="hero">
+    <h2>Creative Designs | Quality Prints | Professional Photos</h2>
+</section>
+
+<section class="services-section">
+    <h2>Our Services</h2>
+
+    <div class="services">
+
+        <div class="service">
+            <img src="ChatGPT Image Apr 25, 2026, 03_49_12 PM.png" alt="">
+            <div class="overlay">
+                <h3>Graphic Design</h3>
+                <p>Creative branding, flyers & digital designs</p>
+                <a href="https://wa.me/233533081244?text=Hello%20I%20want%20Graphic%20Design" class="book-btn">Book Now</a>
+            </div>
+        </div>
+
+        <div class="service">
+            <img src="images.jpg" alt="">
+            <div class="overlay">
+                <h3>Printing</h3>
+                <p>High-quality prints for all your needs</p>
+                <a href="https://wa.me/233533081244?text=Hello%20I%20want%20Printing%20Service" class="book-btn">Book Now</a>
+            </div>
+        </div>
+
+        <div class="service">
+            <img src="Gemini_Generated_Image_qorgrcqorgrcqorg.png" alt="">
+            <div class="overlay">
+                <h3>Photoshoot</h3>
+                <p>Professional studio & outdoor photography</p>
+                <a href="https://wa.me/233533081244?text=Hello%20I%20want%20a%20Photoshoot" class="book-btn">Book Now</a>
+            </div>
+        </div>
+
+        <div class="service">
+            <img src="QQ.jpg" alt="">
+            <div class="overlay">
+                <h3>Binding</h3>
+                <p>Clean finishing for documents & projects</p>
+                <a href="https://wa.me/233533081244?text=Hello%20I%20want%20Binding%20Service" class="book-btn">Book Now</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section>
+    <h2>Contact Us</h2>
+    <p>Phone: 0533081244</p>
+    <p>Email: illaajustice123@gmail.com</p>
+</section>
+<a href="https://wa.me/233533081244" target="_blank" class="whatsapp">
+    Chat with us on WhatsApp
+</a>
+
+<style>
+.whatsapp {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25D366;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+</style>
+<footer>
+    <p>© ABDUL RAFIU GRAPHICS</p>
+</footer>
+
+</body>
+</html>
