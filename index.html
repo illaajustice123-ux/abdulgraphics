@@ -1,227 +1,997 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STAR EDGE BUSINESS CENTRE</title>
+<title>Star Edge Business Centre</title>
 
 <style>
+:root {
+    --bg: #fef7ff;
+    --surface: #ffffff;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --primary: #7c3aed;
+    --secondary: #f97316;
+    --accent: #ec4899;
+    --shadow: 0 20px 40px rgba(124, 58, 237, 0.15);
+    --shadow-hover: 0 30px 60px rgba(124, 58, 237, 0.25);
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
+    font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #fef7ff 0%, #fff7ed 50%, #fef2f2 100%);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
 }
 
-header {
-    background: rgb(28, 202, 66);
-    color: white;
-    padding: 15px;
-    text-align: center;
+img {
+    max-width: 100%;
+    display: block;
 }
 
-nav {
-    background: #333;
-    padding: 10px;
-    text-align: center;
-}
-
-nav a {
-    color: white;
-    margin: 0 15px;
+a {
+    color: inherit;
     text-decoration: none;
 }
 
-section {
-    padding: 40px;
-    text-align: center;
+button,
+.book-btn {
+    font: inherit;
 }
 
-.hero {
-    background: url('sss.jpg') center/cover;
-    color: rgb(250, 225, 4);
-    height: 500px;
-    display: flex;
-    align-items: center;
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
     }
-
-/* SECTION */
-.services-section {
-    padding: 80px 40px;
-    text-align: center;
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.services-section h2 {
-    margin-bottom: 40px;
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
-/* GRID */
-.services {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
 }
 
-/* CARD */
-.service {
+header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: white;
+    padding: 20px 0;
     position: relative;
     overflow: hidden;
 }
 
-/* IMAGE */
-.service img {
-    width: 100%;
-    height: 350px;
-    object-fit: cover;
-    transition: 0.5s;
+header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: pulse 4s ease-in-out infinite;
 }
 
-/* OVERLAY */
-.overlay {
+.navbar {
+    width: min(1200px, calc(100% - 32px));
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: linear-gradient(45deg, #ffffff, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeInUp 1s ease-out;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: rgba(255, 255, 255, 0.9);
+    padding: 12px 20px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-links a::before {
+    content: '';
     position: absolute;
     top: 0;
-    left: 0;
+    left: -100%;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.6);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: 0.5s;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
 }
 
-/* TEXT */
-.overlay h3 {
-    margin: 10px 0;
+.nav-links a:hover::before {
+    left: 100%;
 }
 
-.overlay p {
-    font-size: 14px;
-    margin-bottom: 15px;
-}
-
-/* BUTTON */
-.book-btn {
-    padding: 10px 20px;
-    background: white;
-    color: black;
-    text-decoration: none;
-    border-radius: 30px;
-    transition: 0.3s;
-}
-
-.book-btn:hover {
-    background: black;
+.nav-links a:hover,
+.nav-links a:focus-visible {
+    background: rgba(255, 255, 255, 0.15);
     color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
-/* HOVER EFFECT */
-.service:hover img {
+.nav-links a.active {
+    background: var(--secondary);
+    color: white;
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.5);
+}
+
+main {
+    width: min(1200px, calc(100% - 32px));
+    margin: 0 auto;
+}
+
+.hero {
+    position: relative;
+    margin: 40px auto;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.8), rgba(236, 72, 153, 0.8)), url('sss.jpg') center/cover no-repeat;
+    border-radius: 40px;
+    min-height: 550px;
+    display: grid;
+    align-items: center;
+    padding: 60px 50px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    animation: fadeInUp 1.2s ease-out;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(249, 115, 22, 0.3), transparent 40%),
+                radial-gradient(circle at 70% 70%, rgba(236, 72, 153, 0.2), transparent 35%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    max-width: 700px;
+    z-index: 1;
+}
+
+.hero h1 {
+    margin: 0 0 20px;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    letter-spacing: -0.05em;
+    color: white;
+    text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    animation: bounceIn 1.5s ease-out;
+}
+
+.hero p {
+    margin: 0 0 30px;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.95);
+    max-width: 650px;
+    animation: fadeInUp 1.8s ease-out;
+}
+
+.hero .hero-actions {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    animation: fadeInUp 2s ease-out;
+}
+
+.hero .hero-btn {
+    padding: 18px 30px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    background: var(--secondary);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 8px 25px rgba(249, 115, 22, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero .hero-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+}
+
+.hero .hero-btn:hover::before {
+    left: 100%;
+}
+
+.hero .hero-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(249, 115, 22, 0.6);
+}
+
+.hero .hero-btn:nth-child(2) {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.5);
+    box-shadow: none;
+}
+
+.hero .hero-btn:nth-child(2):hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.section-heading {
+    margin: 100px 0 40px;
+    text-align: center;
+    animation: fadeInUp 1s ease-out;
+}
+
+.section-heading h2 {
+    margin: 0;
+    font-size: clamp(2.2rem, 3vw, 3.2rem);
+    background: linear-gradient(45deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.section-heading p {
+    margin: 20px auto 0;
+    max-width: 750px;
+    color: var(--muted);
+    font-size: 1.1rem;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.service-card {
+    border-radius: 30px;
+    overflow: hidden;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    transition: all 0.4s ease;
+    animation: fadeInUp 1.2s ease-out;
+    animation-fill-mode: both;
+}
+
+.service-card:nth-child(1) { animation-delay: 0.2s; }
+.service-card:nth-child(2) { animation-delay: 0.4s; }
+.service-card:nth-child(3) { animation-delay: 0.6s; }
+.service-card:nth-child(4) { animation-delay: 0.8s; }
+
+.service-card:hover {
+    transform: translateY(-10px) rotate(1deg);
+    box-shadow: var(--shadow-hover);
+}
+
+.service-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.service-card:hover img {
     transform: scale(1.1);
 }
 
-.service:hover .overlay {
+.service-card-content {
+    padding: 30px;
+}
+
+.service-card-content h3 {
+    margin: 0 0 15px;
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.service-card-content p {
+    margin: 0 0 25px;
+    color: var(--muted);
+}
+
+.service-card-content .book-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    background: linear-gradient(45deg, var(--primary), var(--accent));
+    color: white;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(124, 58, 237, 0.3);
+}
+
+.service-card-content .book-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(124, 58, 237, 0.5);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 60px;
+}
+
+.gallery-item {
+    border-radius: 25px;
+    overflow: hidden;
+    position: relative;
+    background: #f3f4f6;
+    height: 250px;
+    box-shadow: var(--shadow);
+    animation: fadeInUp 1s ease-out;
+    animation-fill-mode: both;
+}
+
+.gallery-item:nth-child(1) { animation-delay: 0.1s; }
+.gallery-item:nth-child(2) { animation-delay: 0.3s; }
+.gallery-item:nth-child(3) { animation-delay: 0.5s; }
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.gallery-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, rgba(124, 58, 237, 0.1), rgba(236, 72, 153, 0.1));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover::before {
     opacity: 1;
 }
 
-footer {
-    background: black;
-    color: white;
-    text-align: center;
-    padding: 15px;
+.contact-panel {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 40px;
+    margin-bottom: 100px;
+    animation: fadeInUp 1s ease-out;
 }
+
+.contact-card {
+    background: var(--surface);
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+}
+
+.contact-card h3 {
+    margin-top: 0;
+    color: var(--primary);
+    font-size: 1.6rem;
+}
+
+.contact-card p {
+    color: var(--muted);
+    margin: 15px 0 0;
+}
+
+.contact-details {
+    display: grid;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.contact-details div {
+    background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+    border-radius: 20px;
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.contact-details div:hover {
+    transform: scale(1.02);
+}
+
+.contact-details strong {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text);
+    font-weight: 600;
+}
+
+footer {
+    text-align: center;
+    padding: 40px 0 60px;
+    color: var(--muted);
+    animation: fadeInUp 1s ease-out;
+}
+
+.whatsapp {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    background: linear-gradient(45deg, #25d366, #128c7e);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    animation: bounceIn 2s ease-out;
+}
+
+.whatsapp:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
+}
+
+@media (max-width: 980px) {
+    .services-grid,
+    .gallery-grid,
+    .contact-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding: 50px 30px;
+        min-height: 450px;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.2rem, 6vw, 3.5rem);
+    }
+}
+
+@media (max-width: 720px) {
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .nav-links {
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .hero {
+        padding: 40px 20px;
+        min-height: 400px;
+        margin: 30px auto;
+    }
+
+    .hero .hero-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .section-heading {
+        margin: 60px 0 30px;
+    }
+
+    .services-grid,
+    .gallery-grid {
+        gap: 20px;
+    }
+
+    .contact-panel {
+        gap: 30px;
+    }
+
+    .whatsapp {
+        right: 15px;
+        bottom: 15px;
+        padding: 12px 18px;
+        font-size: 0.9rem;
+    }
+}
+</style>
+
+<style>
+.navbar {
+    width: min(1160px, calc(100% - 32px));
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.brand {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.nav-links {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: #cbd5e1;
+    padding: 12px 16px;
+    border-radius: 999px;
+    transition: transform 250ms ease, background-color 250ms ease, color 250ms ease;
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    transform: translateY(-1px);
+}
+
+.nav-links a.active {
+    background: rgba(255, 255, 255, 0.16);
+    color: white;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.16);
+}
+
+main {
+    width: min(1160px, calc(100% - 32px));
+    margin: 0 auto;
+}
+
+.hero {
+    position: relative;
+    margin: 32px auto;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.72), rgba(15, 23, 42, 0.24)), url('sss.jpg') center/cover no-repeat;
+    border-radius: 32px;
+    min-height: 520px;
+    display: grid;
+    align-items: center;
+    padding: 56px 48px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.18), transparent 25%),
+                radial-gradient(circle at 85% 20%, rgba(14, 165, 233, 0.14), transparent 22%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    max-width: 680px;
+    z-index: 1;
+}
+
+.hero h1 {
+    margin: 0 0 18px;
+    font-size: clamp(2.6rem, 4vw, 4.2rem);
+    letter-spacing: -0.04em;
+}
+
+.hero p {
+    margin: 0 0 28px;
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.88);
+    max-width: 620px;
+}
+
+.hero .hero-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.hero .hero-btn {
+    padding: 16px 26px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 18px 30px rgba(37, 99, 235, 0.22);
+    transition: transform 250ms ease, box-shadow 250ms ease, background-color 250ms ease;
+}
+
+.hero .hero-btn:hover {
+    transform: translateY(-2px);
+    background: #1d4ed8;
+}
+
+.section-heading {
+    margin: 80px 0 28px;
+    text-align: center;
+}
+
+.section-heading h2 {
+    margin: 0;
+    font-size: clamp(2rem, 2.5vw, 2.8rem);
+}
+
+.section-heading p {
+    margin: 16px auto 0;
+    max-width: 700px;
+    color: var(--muted);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.service-card {
+    border-radius: 28px;
+    overflow: hidden;
+    background: white;
+    box-shadow: var(--shadow);
+    transition: transform 250ms ease, box-shadow 250ms ease;
+}
+
+.service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 26px 50px rgba(15, 23, 42, 0.18);
+}
+
+.service-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.service-card-content {
+    padding: 24px;
+}
+
+.service-card-content h3 {
+    margin: 0 0 10px;
+    font-size: 1.35rem;
+}
+
+.service-card-content p {
+    margin: 0 0 20px;
+    color: var(--muted);
+}
+
+.service-card-content .book-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    background: #0ea5e9;
+    color: white;
+    border-radius: 999px;
+    transition: background-color 250ms ease, transform 250ms ease;
+}
+
+.service-card-content .book-btn:hover {
+    background: #0284c7;
+    transform: translateY(-1px);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.gallery-item {
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    background: #e2e8f0;
+    height: 220px;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 300ms ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.contact-panel {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 28px;
+    margin-bottom: 80px;
+}
+
+.contact-card {
+    background: white;
+    border-radius: 28px;
+    padding: 32px;
+    box-shadow: var(--shadow);
+}
+
+.contact-card h3 {
+    margin-top: 0;
+}
+
+.contact-card p {
+    color: var(--muted);
+    margin: 12px 0 0;
+}
+
+.contact-details {
+    display: grid;
+    gap: 18px;
+}
+
+.contact-details div {
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: 18px;
+}
+
+.contact-details strong {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--text);
+}
+
+footer {
+    text-align: center;
+    padding: 28px 0 40px;
+    color: var(--muted);
+}
+
+.whatsapp {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background: #25d366;
+    color: white;
+    padding: 14px 20px;
+    border-radius: 999px;
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.18);
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform 250ms ease, box-shadow 250ms ease;
+}
+
+.whatsapp:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 42px rgba(37, 99, 235, 0.28);
+}
+
+@media (max-width: 980px) {
+    .services-grid,
+    .gallery-grid,
+    .contact-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding: 40px 28px;
+        min-height: 420px;
+    }
+}
+
+@media (max-width: 720px) {
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero {
+        padding: 32px 20px;
+        min-height: 380px;
+    }
+
+    .nav-links {
+        justify-content: center;
+    }
 </style>
 </head>
 
 <body>
-
 <header>
-    <h1>ABDUL RAFIU GRAPHICS</h1>
-    <p>Your One-Stop Print & Design Hub</p>
+    <div class="navbar">
+        <a href="#home" class="brand">STAR EDGE</a>
+        <div class="nav-links">
+            <a href="#home" class="active">Home</a>
+            <a href="#services">Services</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </div>
 </header>
 
-<nav>
-    <a href="#">Home</a>
-    <a href="#">Services</a>
-    <a href="#">Gallery</a>
-    <a href="#">Contact</a>
-</nav>
+<main>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Designs that capture attention, prints that elevate every project.</h1>
+            <p>From brand identity to premium printing and photography, we deliver polished results with fast turnaround and professional care.</p>
+            <div class="hero-actions">
+                <a href="https://wa.me/233533081244" class="hero-btn">Book a Consultation</a>
+                <a href="#services" class="hero-btn" style="background: rgba(255,255,255,0.16); color: white; box-shadow: none;">Explore Services</a>
+            </div>
+        </div>
+    </section>
 
-<section class="hero">
-    <h2>Creative Designs | Quality Prints | Professional Photos</h2>
-</section>
+    <section class="section-heading" id="services">
+        <h2>Premium Services</h2>
+        <p>Four core offerings crafted for business, events, marketing and creative projects.</p>
+    </section>
 
-<section class="services-section">
-    <h2>Our Services</h2>
-
-    <div class="services">
-
-        <div class="service">
-            <img src="ChatGPT Image Apr 25, 2026, 03_49_12 PM.png" alt="">
-            <div class="overlay">
+    <div class="services-grid">
+        <article class="service-card">
+            <img src="ChatGPT Image Apr 25, 2026, 03_49_12 PM.png" alt="Graphic Design">
+            <div class="service-card-content">
                 <h3>Graphic Design</h3>
-                <p>Creative branding, flyers & digital designs</p>
+                <p>Strategic branding, striking flyers, social media visuals, and polished digital assets.</p>
                 <a href="https://wa.me/233533081244?text=Hello%20I%20want%20Graphic%20Design" class="book-btn">Book Now</a>
             </div>
-        </div>
+        </article>
 
-        <div class="service">
-            <img src="images.jpg" alt="">
-            <div class="overlay">
+        <article class="service-card">
+            <img src="images.jpg" alt="Printing">
+            <div class="service-card-content">
                 <h3>Printing</h3>
-                <p>High-quality prints for all your needs</p>
+                <p>Premium print production for brochures, posters, business cards, labels, and packaging.</p>
                 <a href="https://wa.me/233533081244?text=Hello%20I%20want%20Printing%20Service" class="book-btn">Book Now</a>
             </div>
-        </div>
+        </article>
 
-        <div class="service">
-            <img src="Gemini_Generated_Image_qorgrcqorgrcqorg.png" alt="">
-            <div class="overlay">
+        <article class="service-card">
+            <img src="Gemini_Generated_Image_qorgrcqorgrcqorg.png" alt="Photoshoot">
+            <div class="service-card-content">
                 <h3>Photoshoot</h3>
-                <p>Professional studio & outdoor photography</p>
+                <p>Professional studio and outdoor shoots for products, portraits, events and brand storytelling.</p>
                 <a href="https://wa.me/233533081244?text=Hello%20I%20want%20a%20Photoshoot" class="book-btn">Book Now</a>
             </div>
-        </div>
+        </article>
 
-        <div class="service">
-            <img src="QQ.jpg" alt="">
-            <div class="overlay">
+        <article class="service-card">
+            <img src="QQ.jpg" alt="Binding">
+            <div class="service-card-content">
                 <h3>Binding</h3>
-                <p>Clean finishing for documents & projects</p>
+                <p>Document finishing, book binding, reports and project presentation services with crisp results.</p>
                 <a href="https://wa.me/233533081244?text=Hello%20I%20want%20Binding%20Service" class="book-btn">Book Now</a>
+            </div>
+        </article>
+    </div>
+
+    <section class="section-heading" id="gallery">
+        <h2>Featured Work</h2>
+        <p>Visual examples from our service portfolio, presented with a clean and modern arrangement.</p>
+    </section>
+
+    <div class="gallery-grid">
+        <div class="gallery-item"><img src="ChatGPT Image Apr 25, 2026, 03_49_12 PM.png" alt="Gallery image"></div>
+        <div class="gallery-item"><img src="images.jpg" alt="Gallery image"></div>
+        <div class="gallery-item"><img src="Gemini_Generated_Image_qorgrcqorgrcqorg.png" alt="Gallery image"></div>
+    </div>
+
+    <section class="section-heading" id="contact">
+        <h2>Ready to start your project?</h2>
+        <p>Reach out today for a quick quote, custom mockup, or appointment booking.</p>
+    </section>
+
+    <div class="contact-panel">
+        <div class="contact-card">
+            <h3>Contact Information</h3>
+            <p>We are available to answer questions, send samples, or help plan your next print and design project.</p>
+            <div class="contact-details">
+                <div>
+                    <strong>Phone</strong>
+                    <span>0533081244</span>
+                </div>
+                <div>
+                    <strong>Email</strong>
+                    <span>illaajustice123@gmail.com</span>
+                </div>
+                <div>
+                    <strong>WhatsApp</strong>
+                    <span><a href="https://wa.me/233533081244">Chat now</a></span>
+                </div>
             </div>
         </div>
 
+        <div class="contact-card">
+            <h3>What we deliver</h3>
+            <p>Every service is designed to feel premium, professional, and ready for the real world.</p>
+            <div class="contact-details">
+                <div>
+                    <strong>Fast turnaround</strong>
+                    <span>Reliable delivery on all print and design jobs.</span>
+                </div>
+                <div>
+                    <strong>Quality finish</strong>
+                    <span>Elegant, sharp results for every business need.</span>
+                </div>
+            </div>
+        </div>
     </div>
-</section>
+</main>
 
-<section>
-    <h2>Contact Us</h2>
-    <p>Phone: 0533081244</p>
-    <p>Email: illaajustice123@gmail.com</p>
-</section>
-<a href="https://wa.me/233533081244" target="_blank" class="whatsapp">
-    Chat with us on WhatsApp
-</a>
+<a href="https://wa.me/233533081244" target="_blank" class="whatsapp">Chat on WhatsApp</a>
 
-<style>
-.whatsapp {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #25D366;
-    color: white;
-    padding: 15px 20px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-}
-</style>
 <footer>
-    <p>© ABDUL RAFIU GRAPHICS</p>
+    <p>© 2026 ABDUL RAFIU GRAPHICS</p>
 </footer>
-
 </body>
 </html>
